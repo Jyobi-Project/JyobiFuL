@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-// 複数の戻り値を返すことをできる
+// 複数の戻り値を返すことができる
 func swap(x, y string) (string, string) {
 	return y, x
 }
