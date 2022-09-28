@@ -21,8 +21,16 @@ goを実行するときにはsudoをつけるとワーニングがでない
 ## webアプリの実行
 
 ### goの設定
-- `git mod init フォルダ名`を実行しgo.modファイルを生成する(既に実行済みの場合は不要)
+```go
+git mod init フォルダ名
+を実行しgo.modファイルを生成する(既に実行済みの場合は不要
+```
+
 - githubのコードを落としておく
 ```GO
 go get github.com/gin-gonic/gin@v1.7.4
 ```
+
+### 注意点
+- サーバーの停止はctrl+cでやること
+- staticフォルダはgopathで設定したプロジェクト直下に置くこと
