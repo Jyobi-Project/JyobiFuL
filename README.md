@@ -17,3 +17,12 @@ go get github.com/go-sql-driver/mysql
 ### ????
 goを実行するときにはsudoをつけるとワーニングがでない
 面倒くさいので誰か原因究明よろしく
+
+## webアプリの実行
+
+### goの設定
+- `git mod init フォルダ名`を実行しgo.modファイルを生成する(既に実行済みの場合は不要)
+- githubのコードを落としておく
+```GO
+go get github.com/gin-gonic/gin@v1.7.4
+```
