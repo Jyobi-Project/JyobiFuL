@@ -1,18 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>goのテスト</title>
+  <meta charset="UTF-8">
+  <title>goのテスト</title>
+
+  <style>
+      .border {
+          margin: 20px;
+          padding: 10px;
+          border: 1px solid black;
+      }
+  </style>
 </head>
 <body>
 <h1>goのテスト</h1>
-<form action="/hello" method="GET">
-    <input type="text" name="name" value="">
-    <input type="submit" value="送信">
+<h2>URL パラメータ</h2>
+<div class="border">
+  <a href="http://localhost:8888/path/hoge/fuga/piyo/">hoge is /fuga/piyo/</a><br>
+  <a href="http://localhost:8888/path/he/tsushima">he is tsushima</a>
+</div>
+<h2>GET FORM</h2>
+<form action="/hello" method="GET" class="border">
+  name: <input type="text" name="name" value="">
+  <input type="submit" value="送信">
 </form>
-<form action="/db" method="POST">
-    get form: <input type="text" name="name" value=""><br>
-    post form: <input type="submit" value="送信">
+<br>
+<h2>POST FORM</h2>
+<form action="/db" method="POST" class="border">
+  name: <input type="text" name="name" value="">
+  <input type="submit" value="送信">
 </form>
 </body>
 </html>
