@@ -30,6 +30,14 @@ func main() {
 		ctx.String(200, "<h1>dbに以下を登録するよ: "+name+"</h1>")
 	})
 
+	router.GET("/path/:name/*action", func(ctx *gin.Context) {
+		name := ctx.Param("name")
+		action := ctx.Param("action")
+		message := name + " is " + action
+		ctx.Header("Content-Type", "text/html; charset=UTF-8")
+		ctx.String(200, "<h1>"+message+"</h1>")
+	})
+
 	// サーバーを起動
 	err := router.Run("127.0.0.1:8888")
 	if err != nil {
