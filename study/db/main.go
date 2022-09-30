@@ -4,6 +4,7 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"os"
 )
 
 func main() {
@@ -17,12 +18,13 @@ func main() {
 
 // SQLConnect DB接続
 func sqlConnect() (database *gorm.DB, err error) {
+
 	DBMS := "mysql"
 	USER := "root"
-	PASS := "y20010410" //自分の設定したパスワード
+	PASS := os.Getenv("DBPASS") //自分の設定したパスワード
 	PROTOCOL := "tcp(localhost:3306)"
 	DBNAME := "go_example"
 
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?charset=utf8&parseTime=true&loc=Asia%2FTokyo"
-	return gorm.Open(DBMS, CONNECT)
+	return gorm.Open(DBMS, CONNECT), nil
 }
