@@ -20,14 +20,21 @@
   <a href="http://localhost:8888/path/he/tsushima">he is tsushima</a>
 </div>
 <h2>GET FORM</h2>
-<form action="/hello" method="GET" class="border">
+<form action="/get" method="GET" class="border">
   name: <input type="text" name="name" value="">
   <input type="submit" value="送信">
 </form>
 <br>
 <h2>POST FORM</h2>
-<form action="/db" method="POST" class="border">
+<form action="/post" method="POST" class="border">
   name: <input type="text" name="name" value="">
+  <input type="submit" value="送信">
+</form><br>
+<h2>JSON GET FORM</h2>
+<form action="/get_json" method="POST" class="border">
+  name: <input type="text" name="name" value="">
+  age: <input type="number" name="name" value="">
+  food: <input type="text" name="name" value="">
   <input type="submit" value="送信">
 </form>
 </body>
