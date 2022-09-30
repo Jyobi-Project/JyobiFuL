@@ -77,9 +77,44 @@ c.String(http.StatusOK, message)
 ```
 
 ### JSONデータの取得
+
 - 使うかわからんから一旦パス
 
+### jsonデータを返す
+
+- 構造体を定義し,情報を格納する
+
+```go
+type response struct {
+  Name string `json:"name"`
+  Age  int    `json:"page"`
+  Food string `json:"food"`
+}
+```
+
+```go
+sampleJson := &response{
+  Name: name,
+  Age:  age,
+  Food: food,
+}
+```
+
+- jsonとして返却する
+```go
+ctx.Header("Content-Type", "application/json; charset=utf-8")
+ctx.JSON(200, sampleJson)
+```
+
 ### 注意点
+- 構造体の文字はじめは必ず大文字にする
+- 以下を実行してもいいが、jsでjsonにエンコードする必要が出るため、要件に合わせてやるように
+```go
+res, _ := json.Marshal(sampleJson)
+ctx.Header("Content-Type", "application/json; charset=utf-8")
+ctx.JSON(200, string(res))
+```
+
 
 - サーバーの停止はctrl+cでやること
 - staticフォルダはgopathで設定したプロジェクト直下に置くこと

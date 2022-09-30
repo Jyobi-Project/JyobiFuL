@@ -6,11 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 type response struct {
 	Name string `json:"name"`
 	Age  int    `json:"page"`
+	Food string `json:"food"`
 }
 
 func main() {
@@ -45,17 +47,19 @@ func main() {
 		ctx.String(200, "<h1>"+message+"</h1>")
 	})
 
-	//router.POST("/get_json", func(ctx *gin.Context) {
-	//	name := ctx.DefaultPostForm("name", "何もない")
-	//	age, _ := strconv.Atoi(ctx.DefaultPostForm("age", "0"))
-	//	food := ctx.DefaultPostForm("food", "何もない")
-	//	sampleJson := &response{
-	//		name: name,
-	//		age:  age,
-	//		food: food,
-	//	}
-	//	ctx.JSON(200, sampleJson)
-	//})
+	router.POST("/get_json", func(ctx *gin.Context) {
+		name := ctx.DefaultPostForm("name", "何もない")
+		age, _ := strconv.Atoi(ctx.DefaultPostForm("age", "0"))
+		food := ctx.DefaultPostForm("food", "何もない")
+		sampleJson := &response{
+			Name: name,
+			Age:  age,
+			Food: food,
+		}
+		//res, _ := json.Marshal(sampleJson)
+		ctx.Header("Content-Type", "application/json; charset=utf-8")
+		ctx.JSON(200, sampleJson)
+	})
 
 	router.GET("/get_json_test", func(ctx *gin.Context) {
 		sampleJson := &response{
@@ -65,7 +69,7 @@ func main() {
 		res3B, _ := json.Marshal(sampleJson)
 		fmt.Println(res3B)
 		fmt.Println(string(res3B))
-		//ctx.Header("Content-Type", "application/json; charset=utf-8")
+		ctx.Header("Content-Type", "application/json; charset=utf-8")
 		ctx.JSON(200, string(res3B))
 	})
 
