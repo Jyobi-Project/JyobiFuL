@@ -13,6 +13,7 @@ func GetRouter() *gin.Engine {
 	r.GET("/", home.IndexPage)
 	r.GET("/user", user.Home)
 	r.GET("/product", product.Home)
-
+	r.GET("/user/update", user.Update)
+	r.GET("/user/delete", user.UserDelete)
 	return r
 }
