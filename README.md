@@ -42,8 +42,7 @@ go get github.com/gin-gonic/gin@v1.7.4
 
 ### GETデータの取得
 
-- 基本的には文字列型で送られてくる
-- 型を推論してくれるので、intやboolに自動でなるかも?
+- 基本的には文字列型で送られてくるため、用途に合わせたキャストをすること
 
 ```go
 name := ctx.Query("name") // keyがnameのデータを取得 データが存在していなくてもエラーにならない
@@ -69,10 +68,10 @@ name := ctx.DefaultPostForm("limit", "10") // 第2引数にデフォルト値を
 
 ```go
 r.GET("/path/:name/*action", func (c *gin.Context) {
-name := c.Param("name")
-action := c.Param("action")
-message := name + " is " + action
-c.String(http.StatusOK, message)
+  name := c.Param("name")
+  action := c.Param("action")
+  message := name + " is " + action
+  c.String(http.StatusOK, message)
 })
 ```
 
@@ -115,6 +114,42 @@ ctx.Header("Content-Type", "application/json; charset=utf-8")
 ctx.JSON(200, string(res))
 ```
 
+### mysqlの起動
+```bash
+sudo /etc/init.d/mysql start
+```
+
+## ENVファイルの利用
+
+### 必要なパッケージのインストール
+- 以下をインストール
+```go
+go get github.com/joho/godotenv
+```
+
+### envファイルの準備
+- 実行するフォルダ直下に.envファイルを生成する
+```bash
+DB_PASS="自分のpassword"
+DB_USER="利用するuser"
+DB_PROTOCOL="tcp(localhost:3306)"
+DB_NAME="go_example"
+```
+
+### goの記述
+```go
+err = godotenv.Load(".env")
+
+if err == nil {
+  DBMS := "mysql"
+  USER := os.Getenv("DB_USER")
+  PASS := os.Getenv("DB_PASS") //自分の設定したパスワード 
+  PROTOCOL := os.Getenv("DB_PROTOCOL")
+  DBNAME := os.Getenv("DB_NAME")
+}else{
+  fmt.Println("envファイルがないです")
+}
+```
 
 - サーバーの停止はctrl+cでやること
 - staticフォルダはgopathで設定したプロジェクト直下に置くこと
