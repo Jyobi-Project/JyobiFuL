@@ -4,8 +4,8 @@
 
 ### 事前準備
 
-- [mysqlをubuntuにインストール](https://learn.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-databasem, "公式ドキュメント")
-- [パスワード設定でエラー起きたときの処理](https://exerror.com/failed-error-set-password-has-no-significance-for-user-rootlocalhost-as-the-authentication-method-used-doesnt-store-authentication-data-in-the-mysql-server/, "エラー時の参考")
+- [mysqlをubuntuにインストール](https://learn.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-databasem "公式ドキュメント")
+- [パスワード設定でエラー起きたときの処理](https://exerror.com/failed-error-set-password-has-no-significance-for-user-rootlocalhost-as-the-authentication-method-used-doesnt-store-authentication-data-in-the-mysql-server/ "エラー時の参考")
 
 ### goの設定
 
@@ -26,7 +26,7 @@ goを実行するときにはsudoをつけるとワーニングがでない
 面倒くさいので誰か原因究明よろしく
 
 ### goからmysqlへの接続
-- 今回は[gorm](https://gorm.io/docs/index.html, "公式ドキュメント")を用いたsql操作を採用している<br>
+- 今回は[gorm](https://gorm.io/docs/index.html "公式ドキュメント")を用いたsql操作を採用している<br>
 mysql-driverのみを用いた接続でもいいが、structの仕様やテストなどの安全面も考慮しこちらを採用<br>
 より詳細なsqlの書き方については、上記の公式ドキュメントに乗っています
 - セキュアな接続方法や、接続の設定方法などは公式ドキュメントに乗っています<br>
@@ -69,6 +69,7 @@ func SqlConnect() (database *gorm.DB, err error) {
 ```
 
 ### insertの実行
+- [ユーザ登録ページ](http://127.0.0.1:8888/static/user_home.html "ユーザ登録ページ")を用いたsql操作を採用している<br>
 - structを用いたinsert処理
 - structの定義<br>
 jsonで定義しているが、gormを使った定義も可能<br>
@@ -123,6 +124,40 @@ INSERT INTO users(name, age, address) VALUES ("名前", 20, "住所");
 - 知識不足により、DB階層とAP階層に分けることができなかった。(pointerって難しい)<br>
 APとDBは同じ階層に設置し、connectだけdb階層に置くとうまくいく
 
+### selectの実行
+
+
+
+#### 全件検索
+- [全件検索resultページ](http://127.0.0.1:8888/user/AllUser "ユーザ登録ページ")
+```go
+db, err := getConnect.SqlConnect()
+var users []UserData
+if err != nil {
+  fmt.Println("error")
+  fmt.Println(err)
+  return nil, false
+} else {
+  fmt.Println("DBアクセス成功")
+  db.Table("users").Find(&users)
+  return users, true
+}
+```
+- コードの説明
+- 実行結果を取得するストラクトを定義<br>
+[]UserDataの部分でカラムを指定可能(サンプルコードでは、name,age,addressのみ)
+```go
+var users []UserData
+```
+- 検索結果の格納<br>
+上記で定義したusersにFindを使ってポインタに結果を格納
+```go
+db.Table("users").Find(&users)
+```
+
+#### where句・sqlインジェクション
+- where句を使用したselect
+- bind処理の例
 
 
 
