@@ -24,3 +24,17 @@ func SqlInsert(userData UserData) bool {
 		}
 	}
 }
+
+func sqlAllSelect() ([]UserData, bool) {
+	db, err := getConnect.SqlConnect()
+	var users []UserData
+	if err != nil {
+		fmt.Println("error")
+		fmt.Println(err)
+		return nil, false
+	} else {
+		fmt.Println("DBアクセス成功")
+		db.Table("users").Find(&users)
+		return users, true
+	}
+}

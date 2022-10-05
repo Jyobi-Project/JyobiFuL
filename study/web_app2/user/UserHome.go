@@ -16,6 +16,18 @@ func Home(ctx *gin.Context) {
 	ctx.Redirect(302, "/static/user_home.html")
 }
 
+func AllUser(ctx *gin.Context) {
+	result, flag := sqlAllSelect()
+	if flag {
+		ctx.Header("Content-Type", "application/json; charset=utf-8")
+		ctx.JSON(200, result)
+	} else {
+		ctx.Header("Content-Type", "text/html; charset=UTF-8")
+		ctx.String(200, "<h1>DB Errorです</h1>")
+	}
+
+}
+
 func Update(ctx *gin.Context) {
 	ctx.Header("Content-Type", "text/html; charset=UTF-8")
 	ctx.String(200, "<h1>UserUpdateの画面です</h1>")
