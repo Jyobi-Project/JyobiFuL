@@ -25,6 +25,108 @@ go get github.com/go-sql-driver/mysql
 goを実行するときにはsudoをつけるとワーニングがでない
 面倒くさいので誰か原因究明よろしく
 
+### goからmysqlへの接続
+- 今回は[gorm](https://gorm.io/docs/index.html, "公式ドキュメント")を用いたsql操作を採用している<br>
+mysql-driverのみを用いた接続でもいいが、structの仕様やテストなどの安全面も考慮しこちらを採用<br>
+より詳細なsqlの書き方については、上記の公式ドキュメントに乗っています
+- セキュアな接続方法や、接続の設定方法などは公式ドキュメントに乗っています<br>
+私は心が折れました
+```go
+package getConnect
+
+import ( 
+  _ "github.com/go-sql-driver/mysql"
+  "github.com/jinzhu/gorm"
+  "github.com/joho/godotenv"
+  "os"
+)
+
+// SqlConnect DBのconnectionを取得
+// DBの情報は基本的にenvから取り出すこと
+func SqlConnect() (database *gorm.DB, err error) {
+
+  err = godotenv.Load(".env")
+	
+  // envファイルが存在している場合
+  if err == nil {
+  	//DB接続に必要な情報を取得
+    DBMS := "mysql"
+    USER := os.Getenv("DB_USER")
+    PASS := os.Getenv("DB_PASS") //自分の設定したパスワード
+    PROTOCOL := os.Getenv("DB_PROTOCOL")
+    DBNAME := os.Getenv("DB_NAME")
+
+    //DSNの生成
+    CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?charset=utf8&parseTime=true&loc=Asia%2FTokyo"
+    return gorm.Open(DBMS, CONNECT) //DBを開く
+
+    //	envファイルが取得出来なかった場合は、nilを返す
+  } else {
+    return nil, err
+  }
+}
+
+```
+
+### insertの実行
+- structを用いたinsert処理
+- structの定義<br>
+jsonで定義しているが、gormを使った定義も可能<br>
+用途によって使い分けするべき
+```go
+type UserData struct {
+  Name    string `json:"name,omitempty"`
+  Age     int    `json:"age,omitempty"`
+  Address string `json:"address,omitempty"`
+}
+
+userData := UserData{
+  Name:    "名前",
+  Age:     21,
+  Address: "住所を入れる",
+}
+```
+
+- 上記で定義したuserDataを使ってinsertを実行
+```go
+db, err := getConnect.SqlConnect()
+	if err != nil {
+		fmt.Println("error")
+		fmt.Println(err)
+		return false
+	} else {
+		fmt.Println("DBアクセス成功")
+		fmt.Println(userData)
+		result := db.Table("users").Select("name", "age", "address").Create(&userData)
+		print(result)
+		if result.Error != nil {
+			return false
+		} else {
+			return true
+		}
+```
+- コードの説明<br>
+connectionについては省略
+- db.Tableでinsertを実行するテーブルを設定
+- Selectでinsertするカラムを指定
+- Createで挿入するデータ(struct)を指定<br>
+structには&(ポインタ)指定が必要？
+```go
+result := db.Table("users").Select("name", "age", "address").Create(&userData)
+```
+- 結果的に生成され実行されたsql
+```sql
+INSERT INTO users(name, age, address) VALUES ("名前", 20, "住所");
+```
+
+### 注意点
+- 知識不足により、DB階層とAP階層に分けることができなかった。(pointerって難しい)<br>
+APとDBは同じ階層に設置し、connectだけdb階層に置くとうまくいく
+
+
+
+
+
 ## webアプリの実行
 
 ### goの設定
@@ -128,7 +230,7 @@ go get github.com/joho/godotenv
 ```
 
 ### envファイルの準備
-- 実行するフォルダ直下に.envファイルを生成する
+- プロジェクト直下に.envファイルを生成する
 ```bash
 DB_PASS="自分のpassword"
 DB_USER="利用するuser"

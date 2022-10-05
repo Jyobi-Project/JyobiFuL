@@ -51,7 +51,7 @@ func main() {
 		name := ctx.DefaultPostForm("name", "何もない")
 		age, _ := strconv.Atoi(ctx.DefaultPostForm("age", "0"))
 		food := ctx.DefaultPostForm("food", "何もない")
-		sampleJson := &response{
+		sampleJson := response{
 			Name: name,
 			Age:  age,
 			Food: food,
@@ -62,7 +62,7 @@ func main() {
 	})
 
 	router.GET("/get_json_test", func(ctx *gin.Context) {
-		sampleJson := &response{
+		sampleJson := response{
 			Name: "name",
 			Age:  21}
 		fmt.Println(sampleJson)

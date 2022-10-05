@@ -28,6 +28,6 @@ func SqlConnect() (database *gorm.DB, err error) {
 
 		//	envファイルが取得出来なかった場合は、nilを返す
 	} else {
-		return nil, nil
+		return nil, err
 	}
 }

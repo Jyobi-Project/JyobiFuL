@@ -1,12 +1,13 @@
-package main
+package User
 
 import (
-	"Jyobi-Project/study/db/getConnect"
+	"Jyobi-Project/study/web_app2/db/getConnect"
+	"Jyobi-Project/study/web_app2/user"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func sqlInsert(name string, age int, address string) bool {
+func SqlInsert(userData *user.UserData) bool {
 	db, err := getConnect.SqlConnect()
 	if err != nil {
 		fmt.Println("error")
@@ -14,7 +15,7 @@ func sqlInsert(name string, age int, address string) bool {
 		return false
 	} else {
 		fmt.Println("DBアクセス成功")
-		sql, err := db.Exec("INSERT INTO users VALUES(NULL, ?, ?, ?)", name, age, address)
+		fmt.Println(db.Select("name", "age", "address").Create(userData))
 		if err != nil {
 			return false
 		} else {
