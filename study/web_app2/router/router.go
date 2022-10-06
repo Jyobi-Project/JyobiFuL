@@ -20,5 +20,6 @@ func GetRouter() *gin.Engine {
 	r.GET("/user/delete", user.UserDelete)
 	r.POST("/user/insert", user.Insert)
 	r.GET("/user/AllUser", user.AllUser)
+	r.POST("/user/selectId", user.SelectIdUser)
 	return r
 }

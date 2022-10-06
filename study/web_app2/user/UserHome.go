@@ -1,11 +1,19 @@
 package user
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
 
 type UserData struct {
+	Name    string `json:"name,omitempty"`
+	Age     int    `json:"age,omitempty"`
+	Address string `json:"address,omitempty"`
+}
+
+type GetSelectUserData struct {
+	Id      int    `json:"Id,omitempty"`
 	Name    string `json:"name,omitempty"`
 	Age     int    `json:"age,omitempty"`
 	Address string `json:"address,omitempty"`
@@ -25,7 +33,25 @@ func AllUser(ctx *gin.Context) {
 		ctx.Header("Content-Type", "text/html; charset=UTF-8")
 		ctx.String(200, "<h1>DB Errorです</h1>")
 	}
+}
 
+func SelectIdUser(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.DefaultPostForm("id", "0"))
+	fmt.Println(err)
+	fmt.Println(id)
+	if err != nil {
+		ctx.Header("Content-Type", "text/html; charset=UTF-8")
+		ctx.String(501, "<h1>数値ではありません</h1>")
+	} else {
+		result, flag := sqlWhereSelect(id)
+		if flag {
+			ctx.Header("Content-Type", "application/json; charset=utf-8")
+			ctx.JSON(200, result)
+		} else {
+			ctx.Header("Content-Type", "text/html; charset=UTF-8")
+			ctx.String(200, "<h1>DB Errorです</h1>")
+		}
+	}
 }
 
 func Update(ctx *gin.Context) {

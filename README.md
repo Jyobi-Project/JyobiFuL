@@ -126,7 +126,13 @@ APとDBは同じ階層に設置し、connectだけdb階層に置くとうまく�
 
 ### selectの実行
 
-
+- Firstの場合はポインタは配列にする必要はない
+- Findの場合はポインタの配列にすること
+```go
+// FindとFirstの違い
+db.First: 1件のみの検索 基本的に主キーでorder byがされる
+db.Find: 検索条件にマッチするものすべてを持ってくる
+```
 
 #### 全件検索
 - [全件検索resultページ](http://127.0.0.1:8888/user/AllUser "ユーザ登録ページ")
@@ -157,7 +163,15 @@ db.Table("users").Find(&users)
 
 #### where句・sqlインジェクション
 - where句を使用したselect
-- bind処理の例
+- bind処理の例<br>
+- bindの例
+- 主キーが数値の時はみたいな事がドキュメントにあるが、よくわからないのでこれで統一して
+- ?にbindされた値が入る。pythonと一緒
+```go
+db.Table("users").First(&user, "id = ?", id)
+```
+
+#### その他のよく使うsqlの書き方
 
 
 

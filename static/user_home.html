@@ -5,11 +5,18 @@
   <title>Title</title>
 </head>
 <body>
+<h2>登録処理</h2>
 <form action="/user/insert" method="post">
   name: <input type="text" name="name"><br>
   age: <input type="number" name="age"><br>
   address: <input type="text" name="address"><br>
   <button type="submit">登録</button>
+</form><br>
+<a href="/user/AllUser">ユーザ全件検索</a><br>
+<h2>idで検索</h2>
+<form action="/user/selectId" method="post">
+  user_id: <input type="text" name="id">
+  <button type="submit">検索</button>
 </form>
 </body>
 </html>

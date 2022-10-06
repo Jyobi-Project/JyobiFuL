@@ -25,9 +25,9 @@ func SqlInsert(userData UserData) bool {
 	}
 }
 
-func sqlAllSelect() ([]UserData, bool) {
+func sqlAllSelect() ([]GetSelectUserData, bool) {
 	db, err := getConnect.SqlConnect()
-	var users []UserData
+	var users []GetSelectUserData
 	if err != nil {
 		fmt.Println("error")
 		fmt.Println(err)
@@ -36,5 +36,21 @@ func sqlAllSelect() ([]UserData, bool) {
 		fmt.Println("DBアクセス成功")
 		db.Table("users").Find(&users)
 		return users, true
+	}
+}
+
+func sqlWhereSelect(id int) (GetSelectUserData, bool) {
+	db, err := getConnect.SqlConnect()
+	var user GetSelectUserData
+	if err != nil {
+		fmt.Println("error")
+		fmt.Println(err)
+		return user, false
+	} else {
+		fmt.Println("DBアクセス成功")
+		// sqlインジェクションの対策ができないため、下記はだめ
+		//db.Table("users").First(&users, id)
+		db.Table("users").First(&user, "id = ?", id)
+		return user, true
 	}
 }
