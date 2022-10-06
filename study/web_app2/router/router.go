@@ -21,5 +21,6 @@ func GetRouter() *gin.Engine {
 	r.POST("/user/insert", user.Insert)
 	r.GET("/user/AllUser", user.AllUser)
 	r.POST("/user/selectId", user.SelectIdUser)
+	r.POST("/user/GroupBy", user.GroupBy)
 	return r
 }

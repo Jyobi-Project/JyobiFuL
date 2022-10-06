@@ -54,3 +54,18 @@ func sqlWhereSelect(id int) (GetSelectUserData, bool) {
 		return user, true
 	}
 }
+func sqlGroupBy(id int) ([]UserGroupBy, bool) {
+	db, err := getConnect.SqlConnect()
+	var users []UserGroupBy
+	if err != nil {
+		fmt.Println("error")
+		fmt.Println(err)
+		return users, false
+	} else {
+		fmt.Println("DBアクセス成功")
+		// sqlインジェクションの対策ができないため、下記はだめ
+		//db.Table("users").First(&users, id)
+		db.Table("users").Select("address, count(*) as count").Group("address").Having("count(*) > ?", id).Find(&users)
+		return users, true
+	}
+}

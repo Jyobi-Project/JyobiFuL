@@ -173,8 +173,19 @@ db.Table("users").First(&user, "id = ?", id)
 
 #### その他のよく使うsqlの書き方
 
+- 時短のため、goファイルへのサンプルコードは書いていないものもある
 
-
+##### GROUP BY & HAVING
+- 集計関数の書き方<br>
+Selectの中に書くだけ
+```go
+db.Table("users").Select("address, count(*) as count").Group("address").Having("count(*) > ?", 1).Find(&result)
+```
+- 生成されたsql
+- 住所ごとの人数を数え、2人以上のデータを調べるsql
+```sql
+SELECT address, count(*) as count FROM users GROUP BY address HAVING count(*) > 1;
+```
 
 ## webアプリの実行
 

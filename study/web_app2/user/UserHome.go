@@ -19,6 +19,11 @@ type GetSelectUserData struct {
 	Address string `json:"address,omitempty"`
 }
 
+type UserGroupBy struct {
+	Address string `json:"Address,omitempty"`
+	Count   int    `json:"Count,omitempty"`
+}
+
 // 登録ページを表示
 func Home(ctx *gin.Context) {
 	ctx.Redirect(302, "/static/user_home.html")
@@ -44,6 +49,24 @@ func SelectIdUser(ctx *gin.Context) {
 		ctx.String(501, "<h1>数値ではありません</h1>")
 	} else {
 		result, flag := sqlWhereSelect(id)
+		if flag {
+			ctx.Header("Content-Type", "application/json; charset=utf-8")
+			ctx.JSON(200, result)
+		} else {
+			ctx.Header("Content-Type", "text/html; charset=UTF-8")
+			ctx.String(200, "<h1>DB Errorです</h1>")
+		}
+	}
+}
+func GroupBy(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.DefaultPostForm("id", "0"))
+	fmt.Println(err)
+	fmt.Println(id)
+	if err != nil {
+		ctx.Header("Content-Type", "text/html; charset=UTF-8")
+		ctx.String(501, "<h1>数値ではありません</h1>")
+	} else {
+		result, flag := sqlGroupBy(id)
 		if flag {
 			ctx.Header("Content-Type", "application/json; charset=utf-8")
 			ctx.JSON(200, result)
