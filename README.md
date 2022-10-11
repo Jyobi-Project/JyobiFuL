@@ -187,6 +187,30 @@ db.Table("users").Select("address, count(*) as count").Group("address").Having("
 SELECT address, count(*) as count FROM users GROUP BY address HAVING count(*) > 1;
 ```
 
+#### LIMIT・OFFSET
+OFFSETとは<br>
+飛ばす行数
+- LIMITの書き方
+```go
+db.Table("users").Limit(10).Find(&result)
+```
+- 生成されるsql
+```sql
+SELECT * FROM users limit 10;
+```
+
+#### DISTINCT
+```go
+db.Distinct("name", "age").Order("name, age desc").Find(&results)
+```
+
+#### JOIN
+```go
+db.Table("users").Select("users.name, emails.email").Joins("left join emails on emails.user_id = users.id").Find(&results)
+db.Table("users").Select("users.name, emails.email").Joins("inner join emails on emails.user_id = users.id").Find(&results)
+```
+
+
 ## webアプリの実行
 
 ### goの設定
