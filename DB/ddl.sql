@@ -25,6 +25,7 @@ CREATE TABLE questions(
   ans_value TEXT NOT NULL,
   question_lang INT NOT NULL,
   example_answer TEXT DEFAULT NULL,
+  question_view int DEFAULT 0 NOT NULL,
   create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   update_at DATETIME DEFAULT NULL,
   FOREIGN KEY (question_user_id) REFERENCES users(user_id) ON DELETE CASCADE,
