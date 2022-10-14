@@ -48,7 +48,8 @@ CREATE TABLE questions_bookmark(
   user_id INT NOT NULL,
   create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  PRIMARY KEY (question_id, user_id)
 );
 
 CREATE TABLE question_answer(
@@ -58,7 +59,8 @@ CREATE TABLE question_answer(
   create_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   update_at DATETIME DEFAULT NULL,
   FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+  PRIMARY KEY (question_id, user_id)
 );
 
 -- セレクト権限のみ
