@@ -5,7 +5,7 @@ USE jyobiful;
 CREATE TABLE users(
   user_id INT PRIMARY KEY AUTO_INCREMENT,
   user_name VARCHAR(32) NOT NULL,
-  user_mail VARCHAR(64) NOT NULL,
+  user_mail VARCHAR(64) UNIQUE NOT NULL,
   user_password VARCHAR(64) NOT NULL,
   salt VARCHAR(16) NOT NULL,
   user_icon VARCHAR(128) NOT NULL
