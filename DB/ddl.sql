@@ -22,7 +22,7 @@ CREATE TABLE questions(
   question_title VARCHAR(64) NOT NULL,
   question_detail TEXT NOT NULL,
   input_value TEXT DEFAULT NULL,
-  ans_value TEXT NOT NULL,
+  output_value TEXT NOT NULL,
   question_lang INT NOT NULL,
   example_answer TEXT DEFAULT NULL,
   question_view int DEFAULT 0 NOT NULL,
