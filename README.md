@@ -4,7 +4,7 @@
 
 ### 事前準備
 
-- [mysqlをubuntuにインストール](https://learn.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-databasem "公式ドキュメント")
+- [mysqlをubuntuにインストール](https://learn.microsoft.com/ja-jp/windows/wsl/tutorials/wsl-database "公式ドキュメント")
 - [パスワード設定でエラー起きたときの処理](https://exerror.com/failed-error-set-password-has-no-significance-for-user-rootlocalhost-as-the-authentication-method-used-doesnt-store-authentication-data-in-the-mysql-server/ "エラー時の参考")
 
 ### goの設定
@@ -213,10 +213,14 @@ db.Table("users").Select("users.name, emails.email").Joins("inner join emails on
 
 ## webアプリの実行
 
+### 仕様ライブラリ
+- 今回はginを仕様
+- [gin公式ドキュメント](https://pkg.go.dev/github.com/gin-gonic/gin)
+
 ### goの設定
 
 ```go
-git mod init フォルダ名
+git mod init プロジェクト名
 を実行しgo.modファイルを生成する(既に実行済みの場合は不要
 ```
 
