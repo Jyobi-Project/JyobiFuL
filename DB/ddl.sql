@@ -5,7 +5,7 @@ USE jyobiful;
 CREATE TABLE users(
   user_id INT PRIMARY KEY AUTO_INCREMENT,
   user_name VARCHAR(32) NOT NULL,
-  user_mail VARCHAR(64) NOT NULL,
+  user_mail VARCHAR(64) UNIQUE NOT NULL,
   user_password VARCHAR(64) NOT NULL,
   salt VARCHAR(16) NOT NULL,
   user_icon VARCHAR(128) NOT NULL
@@ -22,7 +22,7 @@ CREATE TABLE questions(
   question_title VARCHAR(64) NOT NULL,
   question_detail TEXT NOT NULL,
   input_value TEXT DEFAULT NULL,
-  ans_value TEXT NOT NULL,
+  output_value TEXT NOT NULL,
   question_lang INT NOT NULL,
   example_answer TEXT DEFAULT NULL,
   question_view int DEFAULT 0 NOT NULL,
