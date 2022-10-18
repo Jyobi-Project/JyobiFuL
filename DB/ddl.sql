@@ -43,7 +43,7 @@ CREATE TABLE question_comments(
   FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-CREATE TABLE questions_bookmark(
+CREATE TABLE questions_bookmarks(
   question_id INT NOT NULL,
   user_id INT NOT NULL,
   create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -52,7 +52,7 @@ CREATE TABLE questions_bookmark(
   PRIMARY KEY (question_id, user_id)
 );
 
-CREATE TABLE question_answer(
+CREATE TABLE question_answers(
   question_id INT NOT NULL,
   user_id INT NOT NULL,
   question_answer TEXT NOT NULL,
