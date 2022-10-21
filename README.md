@@ -307,6 +307,8 @@ ctx.JSON(200, string(res))
 ### mysqlの起動
 ```bash
 sudo /etc/init.d/mysql start
+# sudoが必要な場合もあり
+sudo mysql -u root -p
 ```
 
 ## ENVファイルの利用
