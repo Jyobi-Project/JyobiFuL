@@ -71,7 +71,7 @@ func SqlConnect() (database *gorm.DB, err error) {
 ### insertの実行
 - [ユーザ登録ページ](http://127.0.0.1:8888/static/user_home.html "ユーザ登録ページ")を用いたsql操作を採用している<br>
 - structを用いたinsert処理
-- structの定義<br>
+- structの定義 -> DBのカラム名と完全一致にしなければならない(頭文字は大文字)<br>
 jsonで定義しているが、gormを使った定義も可能<br>
 用途によって使い分けするべき
 ```go
