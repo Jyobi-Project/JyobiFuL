@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Jyobi-Project/study/web_app2/router"
+	"Jyobi-Project/study/web-app3/router"
 	"log"
 )
 

@@ -1,8 +1,8 @@
 package router
 
 import (
-	"Jyobi-Project/study/web_app2/home"
-	"Jyobi-Project/study/web_app2/user"
+	"Jyobi-Project/study/web-app3/home"
+	"Jyobi-Project/study/web-app3/users"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -12,8 +12,8 @@ func GetRouter() *gin.Engine {
 
 	r.StaticFS("/static", http.Dir("static"))
 
-	r.GET("/", home.IndexPage)
-	r.GET("/user", user.Home)
+	r.GET("/", home.Home)
+	r.POST("/create_user", users.CreateUser)
 
 	return r
 }
