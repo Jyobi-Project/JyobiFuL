@@ -1,4 +1,4 @@
-package connect
+package getConnect
 
 package getConnect
 
