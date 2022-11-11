@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>goのテスト</title>
+
+  <style>
+      .border {
+          margin: 20px;
+          padding: 10px;
+          border: 1px solid black;
+      }
+  </style>
+</head>
+<body>
+<h1>goのテスト</h1>
+<h2>URL パラメータ</h2>
+<div class="border">
+  <a href="http://localhost:8888/path/hoge/fuga/piyo/">hoge is /fuga/piyo/</a><br>
+  <a href="http://localhost:8888/path/he/tsushima">he is tsushima</a>
+</div>
+<h2>GET FORM</h2>
+<form action="/get" method="GET" class="border">
+  name: <input type="text" name="name" value="">
+  <input type="submit" value="送信">
+</form>
+<br>
+<h2>POST FORM</h2>
+<form action="/post" method="POST" class="border">
+  name: <input type="text" name="name" value="">
+  <input type="submit" value="送信">
+</form><br>
+<h2>JSON GET FORM</h2>
+<form action="/get_json" method="POST" class="border">
+  name: <input type="text" name="name" value="">
+  age: <input type="number" name="age" value="">
+  address: <input type="text" name="food" value="">
+  <input type="submit" value="送信">
+</form>
+</body>
+</html>
