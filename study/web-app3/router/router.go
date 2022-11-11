@@ -13,7 +13,10 @@ func GetRouter() *gin.Engine {
 	r.StaticFS("/static", http.Dir("static"))
 
 	r.GET("/", home.Home)
+	//r.POST("/create_user", users.CreateUser)
 	r.POST("/create_user", users.CreateUser)
+	r.POST("/select_mail", users.SelectWhereUser)
+	r.GET("/SelectAllUser", users.SelectAllUser)
 
 	return r
 }

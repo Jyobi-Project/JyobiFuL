@@ -12,5 +12,21 @@
     パスワード: <input type="password" name="pw"><br>
     <input type="submit" value="送信">
 </form>
+
+<h2>メールで検索</h2>
+<form action="/select_mail" method="post">
+    mail: <input type="text" name="mail">
+    <button type="submit">検索</button>
+</form><br>
+
+<h2>mailで選択したアカウントを編集</h2>
+<form action="/select_mail" method="post">
+    mail: <input type="text" name="mail">
+    name: <input type="text" name="name">
+    age: <input type="text" name="age">
+    pw: <input type="text" name="pw">
+    <input type="text" name="mail">
+    <button type="submit">検索して編集</button>
+</form><br>
 </body>
 </html>

@@ -24,3 +24,45 @@ func SqlInsert(userData UserData) bool {
 		}
 	}
 }
+
+func SqlAllSelect() ([]UserData, bool) {
+	db, err := getConnect.SqlConnect()
+	var users []UserData
+	if err != nil {
+		fmt.Println("error")
+		fmt.Println(err)
+		return nil, false
+	} else {
+		fmt.Println("DBアクセス成功")
+		db.Table("prac_users").Find(&users)
+		return users, true
+	}
+}
+
+func SqlWhereSelect(mail string) ([]UserData, bool) {
+	db, err := getConnect.SqlConnect()
+	var users []UserData
+	if err != nil {
+		fmt.Println("error")
+		fmt.Println(err)
+		return nil, false
+	} else {
+		fmt.Println("DBアクセス成功")
+		db.Table("prac_users").Where("mail like ?", "%"+mail+"%").Find(&users)
+		return users, true
+	}
+}
+
+func SqlUpdateUser(userData UserData) bool {
+	db, err := getConnect.SqlConnect()
+	var users []UserData
+	if err != nil {
+		fmt.Println("error")
+		fmt.Println(err)
+		return false
+	} else {
+		fmt.Println("DBアクセス成功")
+		db.Table("prac_users").Where("mail like ?", "%"+mail+"%").Update("name", "hello").Find(&users)
+		return true
+	}
+}
