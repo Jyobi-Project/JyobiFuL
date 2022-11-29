@@ -1,32 +1,22 @@
-package function
+package user
 
-// Saltを作成する関数
-func CreateSalt() string {
-	return salt
+import (
+  "golang.org/x/crypto/bcrypt"
+  "strings"
+)
+
+// 空白置換をする関数
+func ReplacementSpace(str string) string {
+  return strings.TrimSpace(str)
 }
 
 // PWをハッシュ化する関数
-func HashPw(salt string, pw string) string {
-	return hashPw
+func ConvertPwToHash(pw string) string {
+  hashPw, _ := bcrypt.GenerateFromPassword([]byte(pw), bcrypt.DefaultCost)
+  return string(hashPw)
 }
 
-// 空白置換をする関数
-func SpaceReplacement(str string) string {
-	return str
-}
-
-// 文字数チェックする関数
-func LengthValidation(str string, max int, min int) bool {
-	// TODO: 文字列の長さを取得して変数strにぶち込んでmaxとminと比較しろ
-	return true
-}
-
-// メールのバリデーションチェックをする関数
-func MailValidation(mail string) bool {
-	return true
-}
-
-// パスワードのバリデーションチェックをする関数
-func PwValidation(pw string) bool {
-	return true
+// PWとハッシュ値を比較する関数
+func EqualHashToPw(hash string, pw string) bool {
+  return true
 }
