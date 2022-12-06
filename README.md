@@ -26,3 +26,74 @@ go mod tidyコマンドでは、モジュール内の全てのパッケージの
 
 らしい。
 
+## セッション
+
+### インストール
+```go
+go get github.com/gin-contrib/sessions
+```
+
+### インポート
+```go
+import "github.com/gin-contrib/sessions"
+```
+
+### 使い方
+#### セッションの宣言
+```go
+store := cookie.NewStore([]byte("secret"))
+r.Use(sessions.Sessions("jyobifulSession", store))
+```
+
+#### set
+```go
+session := sessions.Default(c)
+session.Set("UserId")
+session.Save()
+```
+
+#### get
+```go
+session := sessions.Default(c)
+userId := session.Get("UserId")
+```
+
+#### clear
+```go
+func Logout(c *gin.Context) {
+    session := sessions.Default(c)
+    session.Clear()
+    session.Save()
+}
+```
+
+### 使うぜ
+これがセッションチェックの関数だぜ
+```go
+func checkSession() gin.HandlerFunc {
+  return func(c *gin.Context) {
+    session := sessions.Default(c)
+    userId := session.Get("UserId")
+
+    // セッションがない場合、ログインフォームをだす
+    if userId == nil {
+      c.Redirect(http.StatusMovedPermanently, "/login")
+      c.Abort()
+    } else {
+      c.Next()
+    }
+  }
+}
+```
+セッションチェックを行いたいページをグループ化だぜ！  
+それに`Use`を使ってセッションチェック関数を呼び出すぜ！
+```go
+q := r.Group("/question")
+  q.Use(checkSession())
+  {
+    q.GET("/create-form", question.Question)
+    // 問題を登録する
+    q.POST("/create", question.InsertQuestion)
+  }
+```
+以上だぜ！

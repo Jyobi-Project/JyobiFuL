@@ -1,6 +1,7 @@
 package question
 
 import (
+  "github.com/gin-contrib/sessions"
   "github.com/gin-gonic/gin"
 )
 
@@ -20,16 +21,17 @@ type DataQuestion struct {
 }
 
 // Question 問題を登録するページ（サンプル）
-func Question(ctx *gin.Context) {
-  ctx.Redirect(302, "/static/create_question.html")
+func Question(context *gin.Context) {
+  context.Redirect(302, "/static/create_question.html")
 }
 
 // InsertQuestion 問題を登録する
 func InsertQuestion(context *gin.Context) {
-  // TODO セッションからUSERIDを取り出す
+  session := sessions.Default(context)
+  userId := session.Get("UserId")
   // structにデータを入れる
   insertData := DataQuestion{
-    QuestionUserId: context.DefaultPostForm("userId", ""),   // ユーザID
+    QuestionUserId: userId.(string),                         // ユーザID
     QuestionDetail: context.DefaultPostForm("title", ""),    // 問題名
     QuestionTitle:  context.DefaultPostForm("detail", ""),   // 問題詳細
     InputValue:     context.DefaultPostForm("input", ""),    // 入力値
