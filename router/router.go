@@ -10,7 +10,6 @@ import (
 
 func GetRouter() *gin.Engine {
   r := gin.Default()
-
   // セッションの宣言
   store := cookie.NewStore([]byte("secret"))
   r.Use(sessions.Sessions("jyobifulSession", store))
@@ -25,6 +24,11 @@ func GetRouter() *gin.Engine {
   })
 
   r.GET("/login", func(context *gin.Context) {
+    // サンプル用セッション-----------------------------
+    session := sessions.Default(context)
+    session.Set("UserId", "1")
+    session.Save()
+    // ---------------------------------------------
     context.Redirect(302, "/static/index.html")
   })
 
@@ -49,7 +53,7 @@ func checkSession() gin.HandlerFunc {
 
     // セッションがない場合、ログインフォームをだす
     if userId == nil {
-      c.Redirect(http.StatusMovedPermanently, "/login")
+      c.Redirect(303, "/login")
       c.Abort()
     } else {
       c.Next()
