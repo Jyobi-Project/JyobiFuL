@@ -1,6 +1,7 @@
 package users
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -35,6 +36,7 @@ func CreateAccount(ctx *gin.Context) {
 		errorArray = append(errorArray, err.Error())
 	}
 
+	fmt.Println("バリデーションエラーの種類 -> ", errorArray)
 	if len(errorArray) == 0 {
 		userData := UserData{
 			UserName:     name,
@@ -59,4 +61,4 @@ func CreateAccount(ctx *gin.Context) {
 //　func アカウント編集
 // GOのSDKでS3からアイコンのパスみたいなやつをもってきてぶちこむ
 
-func
+//func
