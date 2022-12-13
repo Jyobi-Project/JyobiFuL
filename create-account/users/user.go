@@ -38,10 +38,13 @@ func CreateAccount(ctx *gin.Context) {
 
 	fmt.Println("バリデーションエラーの種類 -> ", errorArray)
 	if len(errorArray) == 0 {
+		// パスワードのハッシュ化
+		hashPw := ConvertPwToHash(pw)
+
 		userData := UserData{
 			UserName:     name,
 			UserMail:     mail,
-			UserPassword: pw,
+			UserPassword: hashPw,
 			UserIcon:     Icon,
 		}
 
@@ -58,7 +61,24 @@ func CreateAccount(ctx *gin.Context) {
 	}
 }
 
-//　func アカウント編集
-// GOのSDKでS3からアイコンのパスみたいなやつをもってきてぶちこむ
+// ログイン処理
+func Login(ctx *gin.Context) {
+	mail := ctx.PostForm("mail")
+	pw := ctx.PostForm("pw")
 
-//func
+	// mailを元にhash化されたpwをもってくる
+	flag, hashPw := SqlSelectUser(mail)
+
+	if flag {
+		if EqualHashToPw(hashPw, pw) {
+			ctx.Header("Content-Type", "text/html; charset=UTF-8")
+			ctx.String(200, "<h1>ログイン成功だよー</h1>")
+		} else {
+			ctx.Header("Content-Type", "text/html; charset=UTF-8")
+			ctx.String(200, "<h1>パスワードが違うよー</h1>")
+		}
+	} else {
+		ctx.Header("Content-Type", "text/html; charset=UTF-8")
+		ctx.String(200, "<h1>SQL ERROR</h1>")
+	}
+}
