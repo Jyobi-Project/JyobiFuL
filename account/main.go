@@ -1,7 +1,7 @@
 package main
 
 import (
-	"Jyobi-Project/create-account/router"
+	"Jyobi-Project/account/router"
 	"log"
 )
 
