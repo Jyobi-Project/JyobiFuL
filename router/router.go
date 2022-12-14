@@ -38,7 +38,7 @@ func GetRouter() *gin.Engine {
   q := r.Group("/question")
   q.Use(checkSession())
   {
-    q.GET("/create-form", question.Question)
+    q.GET("/create", question.Question)
     // 問題を登録する
     q.POST("/create", question.InsertQuestion)
   }
