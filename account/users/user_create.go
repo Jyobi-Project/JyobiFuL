@@ -5,15 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// アカウント作成のストラクト
-
-type UserData struct {
-	UserName     string `json:"user_name,omitempty"`
-	UserMail     string `json:"user_mail,omitempty"`
-	UserPassword string `json:"user_password,omitempty"`
-	UserIcon     string `json:"user_icon,omitempty"`
-}
-
 // アカウント作成関数
 
 func CreateAccount(ctx *gin.Context) {

@@ -15,5 +15,6 @@ func GetRouter() *gin.Engine {
 	r.GET("/", home.Home)
 	r.POST("/CreateAccount", users.CreateAccount)
 	r.POST("/login", users.Login)
+	r.POST("/EditAccount", users.EditAccount)
 	return r
 }
