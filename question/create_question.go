@@ -1,7 +1,6 @@
 package question
 
 import (
-  "github.com/gin-contrib/sessions"
   "github.com/gin-gonic/gin"
 )
 
@@ -12,11 +11,9 @@ func Question(context *gin.Context) {
 
 // InsertQuestion 問題を登録する
 func InsertQuestion(context *gin.Context) {
-  session := sessions.Default(context)
-  userId := session.Get("UserId")
   // structにデータを入れる
   insertData := DataQuestion{
-    QuestionUserId: userId.(string),                         // ユーザID
+    QuestionUserId: context.DefaultPostForm("userId", ""),   // ユーザID
     QuestionDetail: context.DefaultPostForm("title", ""),    // 問題名
     QuestionTitle:  context.DefaultPostForm("detail", ""),   // 問題詳細
     InputValue:     context.DefaultPostForm("input", ""),    // 入力値
