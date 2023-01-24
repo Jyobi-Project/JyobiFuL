@@ -13,6 +13,7 @@ func GetQuestion(c *gin.Context) {
 	// 変数の初期化
 	var responseData QuestionData        // レスポンスデータ
 	var selectQuestion DBGetQuestionData // dbデータ
+	var err bool
 
 	// questionIdを数字にキャストした時にエラーになった場合は不具合
 	if err1 != nil {
@@ -26,7 +27,7 @@ func GetQuestion(c *gin.Context) {
 		return
 	}
 
-	err := true
+
 	selectQuestion, err = SelectDBQuestion(questionId)
 
 	responseData = QuestionData{
