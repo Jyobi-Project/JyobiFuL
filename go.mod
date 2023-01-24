@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/gin-contrib/sessions v0.0.5
-	github.com/gin-gonic/gin v1.7.4
+	github.com/gin-gonic/gin v1.8.1
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/jinzhu/gorm v1.9.16
@@ -13,6 +13,7 @@ require (
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
+	github.com/gin-contrib/cors v1.4.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-ozzo/ozzo-validation v3.6.0+incompatible // indirect
 	github.com/go-playground/locales v0.14.0 // indirect

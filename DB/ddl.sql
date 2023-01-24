@@ -8,13 +8,25 @@ CREATE TABLE users(
   user_mail VARCHAR(64) UNIQUE NOT NULL,
   user_password VARCHAR(64) NOT NULL,
   salt VARCHAR(16) NOT NULL,
-  user_icon VARCHAR(128) NOT NULL
+  user_icon VARCHAR(128) NOT NULL,
+  token VARCHAR(64) DEFAULT '' NOT NULL
 );
+
+insert into users values(null, '津嶋勇輝', 'y.tsushima.sys20@morijyobi.ac.jp', 's', 's', '', '');
 
 CREATE TABLE languages(
   language_id INT PRIMARY KEY AUTO_INCREMENT,
-  language_name VARCHAR(32) NOT NULL
+  language_name VARCHAR(32) NOT NULL,
+  language_sample_answer TEXT NOT NULL
 );
+
+INSERT INTO languages VALUES (null, 'java', '
+public class Main{
+   public static void main(String[] args){
+     System.out.println("Hello World!!");
+   }
+}');
+INSERT INTO languages VALUES (null, 'python', 'print("Hello World!!")');
 
 CREATE TABLE questions(
   question_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -26,11 +38,15 @@ CREATE TABLE questions(
   question_lang INT NOT NULL,
   example_answer TEXT DEFAULT NULL,
   question_view int DEFAULT 0 NOT NULL,
+  answer_count int DEFAULT 0 NOT NULL,
   create_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   update_at DATETIME DEFAULT NULL,
   FOREIGN KEY (question_user_id) REFERENCES users(user_id) ON DELETE CASCADE,
   FOREIGN KEY (question_lang) REFERENCES languages(language_id) ON DELETE CASCADE
 );
+
+INSERT INTO questions VALUES (null, 1, 'サンプル問題のタイトルです', 'サンプル問題です。\n入力値を足し算し、標準出力しなさい', '10 5', '15', 1, '', 0, 0, NOW(), NULL);
+INSERT INTO questions VALUES (null, 1, 'サンプル問題2のタイトルです', 'サンプル問題です。\n入力値を足し算し、標準出力しなさい', '10\n5', '15', 1, '', 0, 0, NOW(), NULL);
 
 CREATE TABLE question_comments(
   comment_id INT PRIMARY KEY AUTO_INCREMENT,
