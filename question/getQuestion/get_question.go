@@ -7,13 +7,14 @@ import (
 )
 
 func GetQuestion(c *gin.Context) {
+	// questionIDの取得
 	questionId, err1 := strconv.Atoi(c.DefaultPostForm("questionID", "0"))
 
-	// fmt.Println(questionId)
+	// 変数の初期化
+	var responseData QuestionData        // レスポンスデータ
+	var selectQuestion DBGetQuestionData // dbデータ
 
-	var responseData QuestionData
-	var selectQuestion DBGetQuestionData
-
+	// questionIdを数字にキャストした時にエラーになった場合は不具合
 	if err1 != nil {
 		responseData = QuestionData{
 			ErrorFlag: true,
@@ -57,9 +58,6 @@ func GetQuestion(c *gin.Context) {
 		UpdateAt:  selectQuestion.UpdateAt,
 		ErrorFlag: err,
 	}
-
-	// fmt.Printf("(%%#v) %#v\n", selectQuestion)
-	// fmt.Printf("(%%#v) %#v\n", responseData)
 
 	c.Header("Content-Type", "application/json; charset=utf-8")
 	c.JSON(200, responseData)

@@ -48,6 +48,7 @@ func GetRouter() *gin.Engine {
 		q.GET("/create", question.Question)
 		// 問題を登録する
 		q.POST("/create", question.InsertQuestion)
+		// 問題を取得する
 		q.POST("/get", getQuestion.GetQuestion)
 	}
 
