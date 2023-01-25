@@ -26,6 +26,8 @@ func SelectDBQuestion(questionId int) (DBGetQuestionData, bool) {
 		"INNER JOIN languages as l on l.language_id = questions.question_lang").Where(
 		"question_id = ?", questionId).First(&selectQuestion)
 
+	fmt.Println(result)
+
 	// 実行に失敗した場合は、errorにする
 	if result.Error != nil {
 		return selectQuestion, true
