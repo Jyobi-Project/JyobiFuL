@@ -7,22 +7,23 @@ import (
 )
 
 // InsertDBQuestion 問題をDBに登録する
-func InsertDBQuestion(questionData DataQuestion) bool {
+func InsertDBQuestion(questionData QuestionData) bool {
   db, err := getConnect.SqlConnect()
   if err != nil {
     fmt.Println("error")
     fmt.Println(err)
     return false
   } else {
-    result := db.Table("questions").Select(
-      "question_user_id",
-      "question_title",
-      "question_detail",
-      "input_value",
-      "output_value",
-      "question_lang",
-      "example_answer",
-    ).Create(&questionData)
+    result := db.Exec(
+      "INSERT INTO questions(question_user_id, question_title, question_detail, input_value, output_value, question_lang, example_answer) VALUES (?,?,?,?,?,(SELECT language_id FROM languages WHERE language_name = ?),?)",
+      questionData.UserId,
+      questionData.QuestionTitle,
+      questionData.QuestionDetail,
+      questionData.InputValue,
+      questionData.OutputValue,
+      questionData.QuestionLang,
+      questionData.ExampleAnswer,
+    )
 
     if result.Error != nil {
       return false

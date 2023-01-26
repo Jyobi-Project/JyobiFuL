@@ -2,17 +2,15 @@ package createQuestion
 
 import (
   validation "github.com/go-ozzo/ozzo-validation/v4"
-  "github.com/go-ozzo/ozzo-validation/v4/is"
 )
 
 // ValidateInsertQuestion 登録する問題のバリデーションチェック
-func ValidateInsertQuestion(insertData DataQuestion) error {
+func ValidateInsertQuestion(insertData QuestionData) error {
   return validation.ValidateStruct(
     &insertData,
     validation.Field(
-      &insertData.QuestionUserId,
-      validation.Required.Error("セッションエラー"),
-      is.Digit.Error("セッションエラー"),
+      &insertData.UserId,
+      validation.Required.Error("ユーザIDがありません"),
     ),
     validation.Field(
       &insertData.QuestionTitle,
@@ -30,7 +28,6 @@ func ValidateInsertQuestion(insertData DataQuestion) error {
     validation.Field(
       &insertData.QuestionLang,
       validation.Required.Error("解答言語が選択されていません。"),
-      is.Digit.Error("解答言語が選択されていません。"),
     ),
   )
 }
