@@ -1,7 +1,11 @@
 package answerquestion
 
 type ResponseData struct {
-	Index  int    `json:"index,omitempty"`
-	Title  string `json:"title,omitempty"`
-	Result bool   `json:"result,omitempty"`
+	Index  int    `json:"index"`
+	Title  string `json:"title"`
+	Result bool   `json:"result"`
+}
+
+type Result struct {
+	ResponseData `json:"result"`
 }
