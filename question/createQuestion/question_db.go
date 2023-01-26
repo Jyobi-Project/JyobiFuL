@@ -1,4 +1,4 @@
-package question
+package createQuestion
 
 import (
   "Jyobi-Project/db/connect"

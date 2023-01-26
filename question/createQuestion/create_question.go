@@ -1,4 +1,4 @@
-package question
+package createQuestion
 
 import (
   "github.com/gin-gonic/gin"
