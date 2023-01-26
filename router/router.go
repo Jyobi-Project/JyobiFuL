@@ -45,7 +45,6 @@ func GetRouter() *gin.Engine {
   // 問題登録ページ（サンプル）
   q := r.Group("/question")
   {
-    q.GET("/create", createQuestion.Question)
     // 問題を登録する
     q.POST("/create", createQuestion.InsertQuestion)
     // 問題を取得する
