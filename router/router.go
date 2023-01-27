@@ -3,6 +3,7 @@ package router
 import (
   "Jyobi-Project/question/createQuestion"
   "Jyobi-Project/question/getQuestion"
+  "Jyobi-Project/question/questionList"
   "net/http"
   "time"
 
@@ -49,6 +50,8 @@ func GetRouter() *gin.Engine {
     q.POST("/create", createQuestion.InsertQuestion)
     // 問題を取得する
     q.POST("/get", getQuestion.GetQuestion)
+    // 問題の一覧を取得する
+    q.POST("/list", questionList.SelectQuestion)
   }
 
   return r
