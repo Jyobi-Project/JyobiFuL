@@ -79,6 +79,14 @@ CREATE TABLE question_answers(
   PRIMARY KEY (question_id, user_id)
 );
 
+CREATE TABLE question_tests(
+  test_id INT PRIMARY KEY AUTO_INCREMENT,
+  question_id INT NOT NULL,
+  test_input TEXT DEFAULT NULL,
+  test_output TEXT NOT NULL,
+  FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE
+);
+
 -- セレクト権限のみ
 CREATE
     USER 'select_user'@'localhost' IDENTIFIED BY 'T4tZhGDVY-GRUfDtUgF6';
