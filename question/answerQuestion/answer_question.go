@@ -26,13 +26,12 @@ func AnswerQuestion(c *gin.Context) {
 
 	var selectQuestion getQuestion.DBGetQuestionData
 	var sqlErr bool
-
 	responseData := Result{
-		ResponseData: ResponseData{
+		Result: []ResponseData{{
 			Index:  0,
 			Title:  "",
 			Result: false,
-		},
+		}},
 	}
 
 	// -----------------------------------------------------------------
@@ -153,11 +152,18 @@ func AnswerQuestion(c *gin.Context) {
 
 	answerResult := string(buf)
 
+	// fmt.Println(answerResult)
+	// fmt.Println(outputValue)
+
+	result := chop(answerResult)
+
+	fmt.Println(result)
+
 	// ---------------------------------------------------------------------
 
 	// outputValueのなかにanswerResultが含まれているか
 	if strings.Contains(answerResult, outputValue) {
-		responseData.Result = true
+		responseData.Result[0].Result = true
 	}
 
 	// 作成したファイルを削除
@@ -168,4 +174,16 @@ func AnswerQuestion(c *gin.Context) {
 	c.Header("Content-Type", "application/json; charset=utf-8")
 	c.JSON(200, responseData)
 
+}
+
+func chop(s string) string {
+	if strings.HasSuffix(s, "\r\n") {
+		fmt.Println("rあるよ")
+	}
+	s = strings.TrimRight(s, "\n")
+	if strings.HasSuffix(s, "\r") {
+		s = strings.TrimRight(s, "\r")
+	}
+
+	return s
 }

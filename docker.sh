@@ -10,7 +10,7 @@ docker cp ./$1 ssh_container:/root/$2_test/
 docker cp ./$4 ssh_container:/root/$2_test/
 
 # プログラムを実行し、result.txtに保尊
-docker exec -i -w /root/$2_test/ ssh_container bash -c "$2 $1 < $4 | tr -d '\n' > $3_result.txt 2>&1"
+docker exec -i -w /root/$2_test/ ssh_container bash -c "$2 $1 < $4 > $3_result.txt 2>&1"
 
 docker cp ssh_container:/root/$2_test/$3_result.txt ./
 

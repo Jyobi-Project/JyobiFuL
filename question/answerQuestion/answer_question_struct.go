@@ -7,5 +7,5 @@ type ResponseData struct {
 }
 
 type Result struct {
-	ResponseData `json:"result"`
+	Result []ResponseData `json:"result"`
 }
